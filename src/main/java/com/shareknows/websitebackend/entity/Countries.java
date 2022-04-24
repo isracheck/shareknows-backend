@@ -12,25 +12,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name = "countries")
+@Entity
+@Table(name = "countries")
 public class Countries implements Serializable  {
 	
 	private static final long serialVersionUID = 1L;
 
-	//@Id
-	//@Column(unique = true, length = 5, nullable = false)
+	@Id
+	@Column(unique = true, length = 5, nullable = false)
 	private String idcountry;
 	
-	//@Column(nullable = false)
+	@Column(nullable = false)
 	private String description;
 	
-	//@Column(nullable = false, name= "continentname", unique = true)
+	@Column(nullable = false, name= "continentname")
 	private String continentName;
 	
 	//@OneToMany(cascade = CascadeType.ALL)
 	//@JoinColumn(name = "idcountry", referencedColumnName = "idcountry")
-	private List<Cities> citiesList = new ArrayList<>();
+	//private List<Cities> citiesList = new ArrayList<>();
 
 	public String getIdcountry() {
 		return idcountry;

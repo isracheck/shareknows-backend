@@ -1,4 +1,4 @@
-package com.shareknows.websitebackend.service;
+package com.shareknows.websitebackend.service.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,8 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -18,28 +16,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shareknows.websitebackend.entity.UsersFollow;
+import com.shareknows.websitebackend.entity.Cities;
+import com.shareknows.websitebackend.service.ICitiesService;
 
 
 //@Service
-public class UsersFollowService implements IUsersFollowService {
-
-	@Autowired
-	private UsersFollowService usersFollowDao;
+public class CitiesService implements ICitiesService {
 	
+	@Autowired
+	private ICitiesService citiesDao;
+
 	@Override
 	//@Transactional(readOnly=true)
-	public List<UsersFollow> findAll() {
+	public List<Cities> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public void save(UsersFollow userFollow) {
-		usersFollowDao.save(userFollow);	
-		
-	}
 	
-
+	
 
 }

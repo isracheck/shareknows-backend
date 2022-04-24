@@ -12,5 +12,6 @@ public interface IUserDao extends CrudRepository<User, Long>{
 	
 	public User findByEmailAndPassword(String email, String password);
 	
-	public User deleteByUser(String user);
+	public Integer deleteByUser(String user);
+	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.shareknows.websitebackend.entity.User;
@@ -19,6 +20,9 @@ public class UserRestController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+	private BCryptPasswordEncoder bCryptPassowrdEncoder;
+    
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<User> getCompanies(){
@@ -37,12 +41,20 @@ public class UserRestController {
 
     @PostMapping("/signUp")
     public ResponseEntity<Void> addUser(@RequestBody User user){
+    	
+    	
         if(userService.findUser(user)==null) {
-            userService.save(user);
-            return new ResponseEntity<Void>(HttpStatus.CREATED);
+        	
+        	if (user.getPassword() != null) {
+        		user.setPassword(bCryptPassowrdEncoder.encode(user.getPassword()));
+        		userService.save(user);
+        		return new ResponseEntity<Void>(HttpStatus.CREATED);		
+        	}
         }else {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
+        
+        return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("login")
@@ -75,7 +87,7 @@ public class UserRestController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{user}")
     public ResponseEntity<Void> deleteUser(@PathVariable(value="user")String user){
         userService.deleteUser(user);
         return new ResponseEntity<Void>(HttpStatus.OK);

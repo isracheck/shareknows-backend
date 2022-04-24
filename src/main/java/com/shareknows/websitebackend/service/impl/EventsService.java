@@ -1,4 +1,4 @@
-package com.shareknows.websitebackend.service;
+package com.shareknows.websitebackend.service.impl;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shareknows.websitebackend.entity.Events;
+import com.shareknows.websitebackend.service.IEventsService;
 
 //@Service
 public class EventsService implements IEventsService {
