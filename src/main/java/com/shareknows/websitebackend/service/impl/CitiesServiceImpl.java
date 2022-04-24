@@ -35,6 +35,11 @@ public class CitiesServiceImpl implements ICitiesService {
 	public Cities findByCity(String city) {
 		return (Cities) citiesDao.findByIdcity(city);
 	}
+	
+	@Override
+	public List<Cities> findByIdcountry(String idcountry) {
+		return (List<Cities>) citiesDao.findByIdcountry(idcountry);
+	}
 
 	@Override
 	public Cities findCity(Cities cities) {

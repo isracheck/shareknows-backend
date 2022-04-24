@@ -57,6 +57,9 @@ public class User implements Serializable {
 	@JoinColumn(name = "iduser", referencedColumnName = "iduser")
 	private List<Events> eventsList = new ArrayList<>();
 	
+	@Column(length = 5, nullable = false)
+	private String role = "USER";
+	
 	/*
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "iduserrel", referencedColumnName = "iduser")
@@ -165,6 +168,16 @@ public class User implements Serializable {
 
 	public void setEventsList(List<Events> eventsList) {
 		this.eventsList = eventsList;
+	}
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 }

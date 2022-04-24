@@ -40,6 +40,11 @@ public class CityRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@GetMapping("/findByCountry/{idcountry}")
+	public  List<Cities> findByCountry(@PathVariable(value = "idcountry") String idcountry) {
+		return citiesService.findByIdcountry(idcountry);	
+	}
 
 	@PostMapping("/save")
 	public ResponseEntity<Void> saveCity(@RequestBody Cities cities) {
