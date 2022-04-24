@@ -28,9 +28,9 @@ public class Countries implements Serializable  {
 	@Column(nullable = false, name= "continentname")
 	private String continentName;
 	
-	//@OneToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "idcountry", referencedColumnName = "idcountry")
-	//private List<Cities> citiesList = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idcountry", referencedColumnName = "idcountry")
+	private List<Cities> citiesList = new ArrayList<>();
 
 	public String getIdcountry() {
 		return idcountry;
@@ -54,6 +54,14 @@ public class Countries implements Serializable  {
 
 	public void setContinentName(String continentName) {
 		this.continentName = continentName;
+	}
+
+	public List<Cities> getCitiesList() {
+		return citiesList;
+	}
+
+	public void setCitiesList(List<Cities> citiesList) {
+		this.citiesList = citiesList;
 	}
 	
 	

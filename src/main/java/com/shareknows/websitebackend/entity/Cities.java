@@ -13,26 +13,26 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-//@Entity
-//@Table(name = "cities")
+@Entity
+@Table(name = "cities")
 public class Cities implements Serializable  {
 	
 	private static final long serialVersionUID = 1L;
 
-	//@Id
-	//@Column(unique = true, length = 5, nullable = false)
+	@Id
+	@Column(unique = true, length = 5, nullable = false)
 	private String idcity;
 	
-	//@Column(name = "idcountry", length = 5)
+	@Column(name = "idcountry", length = 5)
 	private String idcountry;
 	
 	
-	//@Column(nullable = false)
+	@Column(nullable = false)
 	private String name;
 	
 	//@OneToMany(cascade = CascadeType.ALL)
 	//@JoinColumn(name = "idcity", referencedColumnName = "idcity")
-	private List<Events> eventsList = new ArrayList<>();
+	//private List<Events> eventsList = new ArrayList<>();
 
 	public String getIdcity() {
 		return idcity;
