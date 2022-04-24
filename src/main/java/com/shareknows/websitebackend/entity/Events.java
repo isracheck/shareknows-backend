@@ -15,57 +15,62 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-//@Entity
-//@Table(name = "events")
+@Entity
+@Table(name = "events")
 public class Events implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	//@Id
-	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idevent;
-	
-	//@Column(length = 45)
+
+	@Column(length = 100, name = "title")
+	private String title;
+
+	@Column(length = 400)
 	private String description;
-	
-	//@Column(length = 45)
+
+	@Column(length = 255)
 	private String picture;
-	
-	//@Column(nullable = false)
+
+	@Column(nullable = false)
 	private Timestamp startdate;
-	
-	//@Column(nullable = false)
+
+	@Column(nullable = false)
 	private Timestamp enddate;
-	
-	//@Column(length = 45)
+
+	@Column(length = 45)
 	private String number;
-	
-	//@Column(length = 45)
+
+	@Column(length = 100)
 	private String email;
-	
-	//@Column(length = 45, nullable = false)
+
+	@Column(length = 45, nullable = false)
 	private String address;
 	
-	//@Column(name = "idcity")
+	@Column(length = 10, nullable = false)
+	private String postalcode;
+
+	@Column(name = "idcity")
 	private String idcity;
-	
-	//@Column(name= "create_at", nullable = false)
-	//@Temporal(TemporalType.DATE)
+
+	@Column(name = "create_at", nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date createAt;
-	
-	
-	//@Column(name = "iduser")
+
+	@Column(name = "iduser", nullable = false)
 	private Long iduser;
-	
-	
-	//@Column(nullable = false)
+
+	@Column(nullable = false)
 	private BigDecimal value;
-	
-	//@Column(name= "maxpeople", nullable = false)
+
+	@Column(name = "maxpeople", nullable = false)
 	private Integer maxPeople;
 
 	public Long getIdevent() {
@@ -74,6 +79,14 @@ public class Events implements Serializable {
 
 	public void setIdevent(Long idevent) {
 		this.idevent = idevent;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {
@@ -131,6 +144,14 @@ public class Events implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	public String getPostalcode() {
+		return postalcode;
+	}
+
+	public void setPostalcode(String postalcode) {
+		this.postalcode = postalcode;
+	}
 
 	public String getIdcity() {
 		return idcity;
@@ -170,6 +191,11 @@ public class Events implements Serializable {
 
 	public void setMaxPeople(Integer maxPeople) {
 		this.maxPeople = maxPeople;
+	}
+
+	@PrePersist
+	public void prePersist() {
+		createAt = new Date();
 	}
 
 }

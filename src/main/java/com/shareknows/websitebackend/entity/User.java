@@ -1,13 +1,18 @@
 package com.shareknows.websitebackend.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,7 +33,7 @@ public class User implements Serializable {
 	@Column(length = 45, nullable = false, unique = true)
 	private String user;
 
-	@Column(length = 45, nullable = false)
+	@Column(length = 255, nullable = false)
 	private String password;
 	
 	@Column(nullable = false)
@@ -38,7 +43,7 @@ public class User implements Serializable {
 
 	private String phone;
 	
-	@Column(length = 60, unique = true, nullable = false)
+	@Column(length = 100, unique = true, nullable = false)
 	private String email;
 
 	private String photo;
@@ -47,12 +52,12 @@ public class User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
 	
-	/*
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "iduser", referencedColumnName = "iduser")
 	private List<Events> eventsList = new ArrayList<>();
 	
-	
+	/*
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "iduserrel", referencedColumnName = "iduser")
 	private List<UsersFollow> iduserRel = new ArrayList<>();
@@ -150,6 +155,16 @@ public class User implements Serializable {
 	@PrePersist
 	public void prePersist() {
 		createAt = new Date();
+	}
+
+
+	public List<Events> getEventsList() {
+		return eventsList;
+	}
+
+
+	public void setEventsList(List<Events> eventsList) {
+		this.eventsList = eventsList;
 	}
 	
 }

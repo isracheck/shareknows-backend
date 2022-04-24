@@ -30,9 +30,9 @@ public class Cities implements Serializable  {
 	@Column(nullable = false)
 	private String name;
 	
-	//@OneToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "idcity", referencedColumnName = "idcity")
-	//private List<Events> eventsList = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idcity", referencedColumnName = "idcity")
+	private List<Events> eventsList = new ArrayList<>();
 
 	public String getIdcity() {
 		return idcity;
@@ -56,6 +56,14 @@ public class Cities implements Serializable  {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Events> getEventsList() {
+		return eventsList;
+	}
+
+	public void setEventsList(List<Events> eventsList) {
+		this.eventsList = eventsList;
 	}
 
 }
