@@ -3,9 +3,9 @@ package com.shareknows.websitebackend.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,11 +14,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "events")
@@ -72,6 +75,17 @@ public class Events implements Serializable {
 
 	@Column(name = "maxpeople", nullable = false)
 	private Integer maxPeople;
+	
+	@Column(name = "idlanguage")
+	private String idlanguage;
+	
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JsonBackReference
+	@JoinTable(name="eventsuser",
+		joinColumns = @JoinColumn(name="idevent", referencedColumnName = "idevent"),
+		inverseJoinColumns = @JoinColumn(name="iduser", referencedColumnName = "iduser"))
+	private Set<User> usuarios = new HashSet<User>();
 
 	public Long getIdevent() {
 		return idevent;
@@ -193,9 +207,29 @@ public class Events implements Serializable {
 		this.maxPeople = maxPeople;
 	}
 
+	public String getIdlanguage() {
+		return idlanguage;
+	}
+
+	public void setIdlanguage(String idlanguage) {
+		this.idlanguage = idlanguage;
+	}
+
 	@PrePersist
 	public void prePersist() {
 		createAt = new Date();
+	}
+	
+	public void addUsuario(User user) {
+		this.usuarios.add(user);
+	}
+
+	public Set<User> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Set<User> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }

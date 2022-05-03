@@ -1,5 +1,6 @@
 package com.shareknows.websitebackend.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shareknows.websitebackend.entity.Events;
+import com.shareknows.websitebackend.entity.User;
 import com.shareknows.websitebackend.service.IEventsService;
+import com.shareknows.websitebackend.service.IUserService;
 
 @RestController
 @RequestMapping("/api/events")
@@ -24,6 +27,9 @@ public class EventsRestController {
 
 	@Autowired
 	private IEventsService eventsService;
+	
+	@Autowired
+	private IUserService userService;
 
 	@GetMapping("/all")
 	@ResponseStatus(HttpStatus.OK)
@@ -40,6 +46,22 @@ public class EventsRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@GetMapping("/findJoiners/{idevent}")
+	public ResponseEntity<?> findJoinersEvent(@PathVariable(value = "idevent") Long idevent) {
+		Events eventDb = eventsService.findByEvent(idevent);
+		if (eventDb != null) {
+			Collection<User> listaUsuarios = eventDb.getUsuarios();
+			
+			if(listaUsuarios !=null) {
+				return new ResponseEntity<>(listaUsuarios, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+			}
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
 
 	@PostMapping("/save")
 	public ResponseEntity<Void> saveEvent(@RequestBody Events events) {
@@ -51,6 +73,27 @@ public class EventsRestController {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
 
+	}
+	
+	@PutMapping("/joinevent/{idevent}")
+	public ResponseEntity<?> joinEvent(@PathVariable(value = "idevent") Long idevent,
+			@RequestBody User user) {
+		
+		if (user != null){
+			User userDb = userService.findByUser(user.getUser());
+			Events eventDb = eventsService.findByEvent(idevent);
+			
+			if (userDb != null && eventDb != null) {
+				eventDb.addUsuario(userDb);
+				eventsService.save(eventDb);
+				return new ResponseEntity<Void>(HttpStatus.CREATED);
+			} else {
+				return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+			}
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+			
 	}
 
 	@PutMapping("/update/{idevent}")
@@ -73,6 +116,7 @@ public class EventsRestController {
 			eventDb.setIduser(events.getIduser());
 			eventDb.setValue(events.getValue());
 			eventDb.setMaxPeople(events.getMaxPeople());
+			eventDb.setIdlanguage(events.getIdlanguage());
 			
 	
 			eventsService.updateEvent(events);

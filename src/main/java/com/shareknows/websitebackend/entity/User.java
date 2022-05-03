@@ -3,7 +3,9 @@ package com.shareknows.websitebackend.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,11 +14,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 
@@ -60,11 +66,6 @@ public class User implements Serializable {
 	@Column(length = 5, nullable = false)
 	private String role = "USER";
 	
-	/*
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "iduserrel", referencedColumnName = "iduser")
-	private List<UsersFollow> iduserRel = new ArrayList<>();
-	*/
 	
 	public Long getIduser() {
 		return iduser;
