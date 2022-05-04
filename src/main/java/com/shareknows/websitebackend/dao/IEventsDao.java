@@ -1,5 +1,7 @@
 package com.shareknows.websitebackend.dao;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.shareknows.websitebackend.entity.Cities;
@@ -10,5 +12,7 @@ public interface IEventsDao extends CrudRepository<Events, Long>{
 	public Integer removeByIdevent(Long idevent);
 
 	public Events findByIdevent(Long idevent);
+	
+	public List<Events> findByIduser(Long iduser);
 
 }

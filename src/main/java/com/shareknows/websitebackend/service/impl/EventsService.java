@@ -49,6 +49,11 @@ public class EventsService implements IEventsService {
 	public Events updateEvent(Events events) {
 		return eventsDao.save(events);
 	}
+
+	@Override
+	public List<Events> findByIduser(Long idUser) {
+		return (List<Events>) eventsDao.findByIduser(idUser);
+	}
 	
 
 

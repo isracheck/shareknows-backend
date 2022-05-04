@@ -18,5 +18,7 @@ public interface IEventsService {
 	public void deleteEvent(Long event);
 	
 	public Events updateEvent(Events countries);
+	
+	public List<Events> findByIduser(Long idUser);
 
 }
