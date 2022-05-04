@@ -44,13 +44,13 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
 	@Override
 	public User checkUserLogin(User user) {
-		return (User) userDao.findByEmailAndPassword(user.getEmail(), user.getPassword());
+		return (User) userDao.findByEmailAndHash(user.getEmail(), user.getHash());
 	}
 
 	@Override
 	@Transactional
 	public void deleteUser(User user) {
-		userDao.deleteByUser(user.getUser());	
+		userDao.deleteByUsername(user.getUsername());	
 	}
 
 	@Override
@@ -61,22 +61,22 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
 	@Override
 	@Transactional
-	public void deleteUser(String user) {
-		userDao.deleteByUser(user);	
+	public void deleteUsername(String username) {
+		userDao.deleteByUsername(username);	
 	}
 
 	@Override
-	public User findByUser(String user) {
-		return (User) userDao.findByUser(user);
+	public User findByUsername(String username) {
+		return (User) userDao.findByUsername(username);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userDao.findByUser(username);
+		User user = userDao.findByUsername(username);
 		if(user == null) {
 			throw new UsernameNotFoundException("Usuario no valido");
 		}
-		return new org.springframework.security.core.userdetails.User(user.getUser(), user.getPassword(), Arrays.asList(new SimpleGrantedAuthority("ROLE ADMIN")));	
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getHash(), Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));	
 	}
 
 

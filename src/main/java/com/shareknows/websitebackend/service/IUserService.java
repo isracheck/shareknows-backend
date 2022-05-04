@@ -12,7 +12,7 @@ public interface IUserService {
 	
 	public User findUser(User user);
 	
-	public User findByUser(String user);
+	public User findByUsername(String user);
 	
 	public User checkUserLogin(User user);
 	
@@ -20,6 +20,6 @@ public interface IUserService {
 	
 	public User updateUser(User user);
 	
-	public void deleteUser(String user);
+	public void deleteUsername(String username);
 
 }

@@ -80,7 +80,7 @@ public class EventsRestController {
 			@RequestBody User user) {
 		
 		if (user != null){
-			User userDb = userService.findByUser(user.getUser());
+			User userDb = userService.findByUsername(user.getUsername());
 			Events eventDb = eventsService.findByEvent(idevent);
 			
 			if (userDb != null && eventDb != null) {

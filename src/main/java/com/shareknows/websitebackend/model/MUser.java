@@ -4,7 +4,7 @@ import com.shareknows.websitebackend.entity.User;
 
 public class MUser {
 
-	private String user;
+	private String username;
 	private String email;
 	private String name;
 	private String phone;
@@ -14,9 +14,9 @@ public class MUser {
 
 	}
 
-	public MUser(String user, String email, String name, String phone, String photo) {
+	public MUser(String username, String email, String name, String phone, String photo) {
 		super();
-		this.user = user;
+		this.username = username;
 		this.email = email;
 		this.name = name;
 		this.phone = phone;
@@ -25,19 +25,19 @@ public class MUser {
 
 	public MUser(User user) {
 		super();
-		this.user = user.getUser();
+		this.username = user.getUsername();
 		this.email = user.getEmail();
 		this.name = user.getEmail();
 		this.phone = user.getPhone();
 		this.photo = user.getPhoto();
 	}
 
-	public String getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {

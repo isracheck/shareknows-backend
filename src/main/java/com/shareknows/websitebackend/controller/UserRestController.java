@@ -45,8 +45,8 @@ public class UserRestController {
     	
         if(userService.findUser(user)==null) {
         	
-        	if (user.getPassword() != null) {
-        		user.setPassword(bCryptPassowrdEncoder.encode(user.getPassword()));
+        	if (user.getHash() != null) {
+        		user.setHash(bCryptPassowrdEncoder.encode(user.getHash()));
         		userService.save(user);
         		return new ResponseEntity<Void>(HttpStatus.CREATED);		
         	}
@@ -72,9 +72,9 @@ public class UserRestController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable(value="id")String userid, @RequestBody User user){
+    public ResponseEntity<?> updateUser(@PathVariable(value="id")String username, @RequestBody User user){
         User userDb = null;
-        userDb = userService.findByUser(userid);
+        userDb = userService.findByUsername(username);
         if(userDb != null) {
             userDb.setEmail(user.getEmail());
             userDb.setName(user.getName());
@@ -89,7 +89,7 @@ public class UserRestController {
 
     @DeleteMapping("/delete/{user}")
     public ResponseEntity<Void> deleteUser(@PathVariable(value="user")String user){
-        userService.deleteUser(user);
+        userService.deleteUsername(user);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 

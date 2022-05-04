@@ -37,10 +37,10 @@ public class User implements Serializable {
 	private Long iduser;
 	
 	@Column(length = 45, nullable = false, unique = true)
-	private String user;
+	private String username;
 
 	@Column(length = 255, nullable = false)
-	private String password;
+	private String hash;
 	
 	@Column(nullable = false)
 	private String name;
@@ -63,9 +63,13 @@ public class User implements Serializable {
 	@JoinColumn(name = "iduser", referencedColumnName = "iduser")
 	private List<Events> eventsList = new ArrayList<>();
 	
-	@Column(length = 5, nullable = false)
-	private String role = "USER";
+	@Column(length = 10, nullable = false)
+	private String role = "ROLE_USER";
 	
+	
+	private String recoveryuuid;
+	
+	private boolean active = true;
 	
 	public Long getIduser() {
 		return iduser;
@@ -77,23 +81,23 @@ public class User implements Serializable {
 	}
 
 
-	public String getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
 
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 
-	public String getPassword() {
-		return password;
+	public String getHash() {
+		return hash;
 	}
 
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 
 
@@ -179,6 +183,26 @@ public class User implements Serializable {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+
+	public String getRecoveryuuid() {
+		return recoveryuuid;
+	}
+
+
+	public void setRecoveryuuid(String recoveryuuid) {
+		this.recoveryuuid = recoveryuuid;
+	}
+
+
+	public boolean getActive() {
+		return active;
+	}
+
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 }

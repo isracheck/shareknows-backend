@@ -8,10 +8,10 @@ public interface IUserDao extends CrudRepository<User, Long>{
 
 	public User findByEmail(String email);
 	
-	public User findByUser(String user);
+	public User findByUsername(String username);
 	
-	public User findByEmailAndPassword(String email, String password);
+	public User findByEmailAndHash(String email, String password);
 	
-	public Integer deleteByUser(String user);
+	public Integer deleteByUsername(String username);
 	
 }
