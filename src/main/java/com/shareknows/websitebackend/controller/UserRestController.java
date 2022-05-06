@@ -19,6 +19,9 @@ public class UserRestController {
 
     @Autowired
     private IUserService userService;
+    
+    @Autowired
+	private BCryptPasswordEncoder bCryptPassowrdEncoder;
 
     
     @GetMapping("/all")
@@ -27,9 +30,9 @@ public class UserRestController {
         return userService.findAll();
     }
 
-    @PostMapping("/findUser")
-    public ResponseEntity<?> findUser(@RequestBody User user){
-        User userDb = userService.findUser(user);
+    @GetMapping("/find/{username}")
+    public ResponseEntity<?> findUser(@PathVariable(value = "username") String username){
+        User userDb = userService.findByUsername(username);
         if(userDb!=null) {
             return new ResponseEntity<>(userDb, HttpStatus.OK);
         }else {
@@ -37,16 +40,33 @@ public class UserRestController {
         }
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable(value="id")String username, @RequestBody User user){
+    @PutMapping("/update/{username}")
+    public ResponseEntity<?> updateUser(@PathVariable(value="username")String username, @RequestBody User user){
         User userDb = null;
         userDb = userService.findByUsername(username);
         if(userDb != null) {
-            userDb.setEmail(user.getEmail());
-            userDb.setName(user.getName());
-            userDb.setPhone(user.getPhone());
+        	
+        	if(user.getEmail() != null) {
+        		userDb.setEmail(user.getEmail());
+        	}
+        	
+        	if(user.getName() != null) {
+        		userDb.setName(user.getName());
+        	}
+        	if(user.getLastname() != null) {
+        		userDb.setLastname(user.getLastname());
+        	}
+        	
+        	if(user.getPhone() != null) {
+        		userDb.setPhone(user.getPhone());
+        	}
+        	
             userDb.setPhoto(user.getPhoto());
-            userService.updateUser(user);
+            
+            if (user.getHash() != null) {
+            	userDb.setHash(bCryptPassowrdEncoder.encode(user.getHash()));
+            }
+            userService.updateUser(userDb);
             return new ResponseEntity<>(userDb, HttpStatus.OK);
         }else {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);

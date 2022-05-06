@@ -39,7 +39,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public User findUser(User user) {
-		return (User) userDao.findByEmail(user.getEmail());
+		return (User) userDao.findByUsername(user.getUsername());
 	}
 
 	@Override

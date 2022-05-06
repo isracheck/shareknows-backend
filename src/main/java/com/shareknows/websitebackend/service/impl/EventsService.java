@@ -41,8 +41,7 @@ public class EventsService implements IEventsService {
 
 	@Override
 	public void deleteEvent(Long event) {
-		eventsDao.removeByIdevent(event);
-		
+		eventsDao.deleteById(event);
 	}
 
 	@Override

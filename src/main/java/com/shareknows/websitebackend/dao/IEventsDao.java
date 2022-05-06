@@ -9,7 +9,7 @@ import com.shareknows.websitebackend.entity.Events;
 
 public interface IEventsDao extends CrudRepository<Events, Long>{
 		
-	public Integer removeByIdevent(Long idevent);
+	public Integer deleteByIdevent(Long idevent);
 
 	public Events findByIdevent(Long idevent);
 	
