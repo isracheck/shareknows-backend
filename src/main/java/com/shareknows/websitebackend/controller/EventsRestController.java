@@ -157,7 +157,6 @@ public class EventsRestController {
 				eventDb.setEmail(events.getEmail());
 				eventDb.setAddress(events.getAddress());
 				eventDb.setIdcity(events.getIdcity());
-				eventDb.setCreateAt(events.getCreateAt());
 				eventDb.setIduser(userDb.getIduser());
 				eventDb.setValue(events.getValue());
 				eventDb.setPostalcode(events.getPostalcode());
