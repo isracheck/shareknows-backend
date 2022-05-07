@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 // AUTHENTICATED
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/cities/all").permitAll()
+                .antMatchers("/api/countries/all").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
