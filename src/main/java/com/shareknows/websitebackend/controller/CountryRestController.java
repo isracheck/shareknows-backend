@@ -26,12 +26,22 @@ public class CountryRestController {
 	@Autowired
 	private ICountriesService countriesService;
 
+	/**
+	 * Method: Petición que retorna todos los paises de la entidad
+	 * @param 
+	 * @return 
+	 */
 	@GetMapping("/all")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Countries> getCountries() {
 		return countriesService.findAll();
 	}
-
+	
+	/**
+	 * Method: Petición que retorna un pais en base a un ID
+	 * @param 
+	 * @return 
+	 */
 	@GetMapping("/find/{idcountry}")
 	public ResponseEntity<?> findCountry(@PathVariable(value = "idcountry") String idcountry) {
 		Countries countryDb = countriesService.findByCountry(idcountry);
@@ -42,6 +52,11 @@ public class CountryRestController {
 		}
 	}
 
+	/**
+	 * Method: Petición que guarda un nuevo pais
+	 * @param 
+	 * @return 
+	 */
 	@PostMapping("/save")
 	public ResponseEntity<Void> saveCountry(@RequestBody Countries countries) {
 
@@ -54,6 +69,11 @@ public class CountryRestController {
 
 	}
 
+	/**
+	 * Method: Petición que actualiza un pais en base a un ID
+	 * @param 
+	 * @return 
+	 */
 	@PutMapping("/update/{idcountry}")
 	public ResponseEntity<?> updateCountry(@PathVariable(value = "idcountry") String idcountry,
 			@RequestBody Countries countries) {
@@ -70,6 +90,11 @@ public class CountryRestController {
 		}
 	}
 
+	/**
+	 * Method: Petición que elimina un pais en base a un ID
+	 * @param 
+	 * @return 
+	 */
 	@DeleteMapping("/delete/{idcountry}")
 	public ResponseEntity<Void> deleteCountry(@PathVariable(value = "idcountry") String idcountry) {
 		countriesService.deleteCountry(idcountry);

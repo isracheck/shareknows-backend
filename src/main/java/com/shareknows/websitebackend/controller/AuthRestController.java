@@ -1,7 +1,5 @@
 package com.shareknows.websitebackend.controller;
 
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,7 @@ import com.shareknows.websitebackend.service.IUserService;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthRestController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthRestController.class);
 
 	@Autowired
@@ -40,53 +38,68 @@ public class AuthRestController {
 
 	@Autowired
 	JwtProvider jwtProvider;
-	
+
 	@Autowired
 	IUserDao userRepository;
-	
+
 	@Autowired
-    private IUserService userService;
-	
+	private IUserService userService;
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPassowrdEncoder;
+	
 
+	/**
+	 * Method: authenticateUser Metodo de autenticación 
+	 * @param loginRequest
+	 * @return ResponseEntity<BasicResponse>
+	 */
 	@PostMapping("/signin")
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public ResponseEntity<BasicResponse> authenticateUser(@RequestBody LoginForm loginRequest) {
 
+		// Verificamos si la autenticación es correcta
 		Authentication authentication = this.authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
+		// Seteamos autenticación recibida del usuario
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
+		// Generamos token JWT de autenticación
 		String jwt = this.jwtProvider.generateJwtToken(authentication);
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		
-		// Each user has only one authority
+
+		// Obtenemos rol del usuario
 		GrantedAuthority authority = userDetails.getAuthorities().iterator().next();
-		
+
 		return ResponseEntity.ok(new JwtResponse(jwt, userDetails, authority));
 	}
 	
-    @PostMapping("/signup")
-    public ResponseEntity<Void> addUser(@RequestBody User user){
-    	
-    	// Verificamos si el usuario existe
-        if(userService.findUser(user)==null) {
-        	// Identificamos que el usuario haya ingresado un password en la petición
-        	if (user.getHash() != null) {
-        		// Aplicamos el códificador encode para hashear el password
-        		user.setHash(bCryptPassowrdEncoder.encode(user.getHash()));
-        		// Guardamos nuevo usuario
-        		userService.save(user);
-        		return new ResponseEntity<Void>(HttpStatus.CREATED);		
-        	} 
-        }else {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-        
-        return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-    }
+	
+	
+	/**
+	 * Method: addUser Metodo de registro de nuevos usuarios
+	 * @param user
+	 * @return ResponseEntity<Void>
+	 */
+	@PostMapping("/signup")
+	public ResponseEntity<Void> addUser(@RequestBody User user) {
 
+		// Verificamos si el usuario existe
+		if (userService.findUser(user) == null) {
+			// Identificamos que el usuario haya ingresado un password en la petición
+			if (user.getHash() != null) {
+				// Aplicamos el códificador encode para hashear el password
+				user.setHash(bCryptPassowrdEncoder.encode(user.getHash()));
+				// Guardamos nuevo usuario
+				userService.save(user);
+				return new ResponseEntity<Void>(HttpStatus.CREATED);
+			}
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+
+		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+	}
 
 }

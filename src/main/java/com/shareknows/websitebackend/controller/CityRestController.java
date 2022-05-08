@@ -25,12 +25,22 @@ public class CityRestController {
 	@Autowired
 	private ICitiesService citiesService;
 
+	/**
+	 * Method: Petición que retorna todas las ciudades creadas en la entidad
+	 * @param 
+	 * @return List<Cities>
+	 */
 	@GetMapping("/all")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Cities> getCities() {
 		return citiesService.findAll();
 	}
 
+	/**
+	 * Method: Petición que retorna información de la ciudad en base al id
+	 * @param 
+	 * @return 
+	 */
 	@GetMapping("/find/{idcity}")
 	public ResponseEntity<?> findCity(@PathVariable(value = "idcity") String idcity) {
 		Cities cityDb = citiesService.findByCity(idcity);
@@ -41,11 +51,21 @@ public class CityRestController {
 		}
 	}
 
+	/**
+	 * Method: Petición que retorna todas las ciudades de un Pais
+	 * @param 
+	 * @return List<Cities>
+	 */
 	@GetMapping("/findByCountry/{idcountry}")
 	public List<Cities> findByCountry(@PathVariable(value = "idcountry") String idcountry) {
 		return citiesService.findByIdcountry(idcountry);
 	}
 
+	/**
+	 * Method: Petición que guarda una nueva ciudad
+	 * @param 
+	 * @return 
+	 */
 	@PostMapping("/save")
 	public ResponseEntity<Void> saveCity(@RequestBody Cities cities) {
 
@@ -58,6 +78,11 @@ public class CityRestController {
 
 	}
 
+	/**
+	 * Method: Petición que actualiza los datos de una ciudad
+	 * @param 
+	 * @return 
+	 */
 	@PutMapping("/update/{idcity}")
 	public ResponseEntity<?> updateCity(@PathVariable(value = "idcity") String idcity, @RequestBody Cities cities) {
 		Cities cityDb = null;
@@ -73,6 +98,11 @@ public class CityRestController {
 		}
 	}
 
+	/**
+	 * Method: Petición que elimina una ciudad en base a un ID
+	 * @param 
+	 * @return 
+	 */
 	@DeleteMapping("/delete/{idcity}")
 	public ResponseEntity<Void> deleteCity(@PathVariable(value = "idcity") String idcity) {
 		citiesService.deleteCity(idcity);

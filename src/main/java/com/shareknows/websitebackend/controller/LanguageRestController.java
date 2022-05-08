@@ -25,12 +25,22 @@ public class LanguageRestController {
 	@Autowired
 	private ILanguagesService languagesService;
 
+	/**
+	 * Method: Petición que retorna todos los lenguajes en la entidad
+	 * @param 
+	 * @return 
+	 */
 	@GetMapping("/all")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Languages> getLanguages() {
 		return languagesService.findAll();
 	}
 
+	/**
+	 * Method: Petición que retorna el lenguaje en base al id
+	 * @param 
+	 * @return 
+	 */
 	@GetMapping("/find/{idlanguage}")
 	public ResponseEntity<?> findLanguage(@PathVariable(value = "idlanguage") String idlanguage) {
 		Languages languageDb = languagesService.findByLanguage(idlanguage);
@@ -41,6 +51,11 @@ public class LanguageRestController {
 		}
 	}
 
+	/**
+	 * Method: Petición que guarda un lenguaje nuevo
+	 * @param 
+	 * @return 
+	 */
 	@PostMapping("/save")
 	public ResponseEntity<Void> saveLanguage(@RequestBody Languages languages) {
 
@@ -53,6 +68,11 @@ public class LanguageRestController {
 
 	}
 
+	/**
+	 * Method: Petición que actualiza los datos de un lenguaje en base a su id y body
+	 * @param 
+	 * @return 
+	 */
 	@PutMapping("/update/{idlanguage}")
 	public ResponseEntity<?> updateLanguage(@PathVariable(value = "idlanguage") String idlanguage,
 			@RequestBody Languages languages) {
@@ -68,6 +88,11 @@ public class LanguageRestController {
 		}
 	}
 
+	/**
+	 * Method: Petición que elimina un lenguaje en base a su id
+	 * @param 
+	 * @return 
+	 */
 	@DeleteMapping("/delete/{idlanguage}")
 	public ResponseEntity<Void> deleteLanguage(@PathVariable(value = "idlanguage") String idlanguage) {
 		languagesService.deleteLanguage(idlanguage);

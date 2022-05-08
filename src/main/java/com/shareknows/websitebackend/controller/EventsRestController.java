@@ -33,12 +33,22 @@ public class EventsRestController {
 	@Autowired
 	private IUserService userService;
 
+	/**
+	 * Method: Petición que retorna todos los eventos creados en la entidad
+	 * @param 
+	 * @return 
+	 */
 	@GetMapping("/all")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Events> getEvents() {
 		return eventsService.findAll();
 	}
 
+	/**
+	 * Method: Petición que retorna la información de un evento en base a su id
+	 * @param 
+	 * @return 
+	 */
 	@GetMapping("/find/{idevent}")
 	public ResponseEntity<?> findEvent(@PathVariable(value = "idevent") Long idevent) {
 		Events eventDb = eventsService.findByEvent(idevent);
@@ -49,6 +59,11 @@ public class EventsRestController {
 		}
 	}
 
+	/**
+	 * Method: Petición que retorna todos los eventos creados por un usuario
+	 * @param 
+	 * @return 
+	 */
 	@GetMapping("/findByUsername/{username}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Events> findJoinersEvent(@PathVariable(value = "username") String username) {
@@ -64,6 +79,11 @@ public class EventsRestController {
 
 	}
 
+	/**
+	 * Method: Petición que retorna todos los usuarios unidos a un evento
+	 * @param 
+	 * @return 
+	 */
 	@GetMapping("/findJoiners/{idevent}")
 	public ResponseEntity<?> findJoinersEvent(@PathVariable(value = "idevent") Long idevent) {
 		Events eventDb = eventsService.findByEvent(idevent);
@@ -80,9 +100,15 @@ public class EventsRestController {
 		}
 	}
 
+	/**
+	 * Method: Petición que guarda un nuevo evento
+	 * @param 
+	 * @return 
+	 */
 	@PostMapping("/save")
 	public ResponseEntity<Void> saveEvent(@RequestBody MEvents events) {
 
+		// Verificamos que usuario que viaja en el body esta dado de alta
 		User userDb = userService.findByUsername(events.getUsername());
 
 		if (userDb != null) {
@@ -105,7 +131,9 @@ public class EventsRestController {
 			eventDb.setMaxPeople(events.getMaxPeople());
 			eventDb.setIdlanguage(events.getIdlanguage());
 
+			// Verificamos si el evento existe anteriormente
 			if (eventsService.findEvent(eventDb) == null) {
+				// Creamos evento
 				eventsService.save(eventDb);
 				return new ResponseEntity<Void>(HttpStatus.CREATED);
 			} else {
@@ -115,14 +143,22 @@ public class EventsRestController {
 
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 	}
-
+	
+	/**
+	 * Method: Petición que suscribe un usuario a un evento
+	 * @param 
+	 * @return 
+	 */
 	@PutMapping("/joinevent/{idevent}")
 	public ResponseEntity<?> joinEvent(@PathVariable(value = "idevent") Long idevent, @RequestBody User user) {
 
 		if (user != null) {
+			// Obtenemos datos del usuario
 			User userDb = userService.findByUsername(user.getUsername());
+			// Obtenemos datos del evento
 			Events eventDb = eventsService.findByEvent(idevent);
 
+			// Verificamos que ambos existen y creamos relación
 			if (userDb != null && eventDb != null) {
 				eventDb.addUsuario(userDb);
 				eventsService.save(eventDb);
@@ -136,13 +172,21 @@ public class EventsRestController {
 
 	}
 
+	/**
+	 * Method: Petición que elimina la suscripción de un usuario a un evento.
+	 * @param 
+	 * @return 
+	 */
 	@PutMapping("/unsuscribevent/{idevent}")
 	public ResponseEntity<?> unsuscribeEvent(@PathVariable(value = "idevent") Long idevent, @RequestBody User user) {
 
 		if (user != null) {
+			// Obtenemos datos de usuario
 			User userDb = userService.findByUsername(user.getUsername());
+			// Obtenemos datos del evento
 			Events eventDb = eventsService.findByEvent(idevent);
 
+			// Verificamos que ambos existen y eliminamos
 			if (userDb != null && eventDb != null) {
 				eventsService.deleteEventUser(eventDb.getIdevent(), userDb.getIduser());
 				return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
@@ -155,14 +199,21 @@ public class EventsRestController {
 
 	}
 
+	/**
+	 * Method: Petición que actualiza un evento en base al body de la petición
+	 * @param 
+	 * @return 
+	 */
 	@PutMapping("/update/{idevent}")
 	public ResponseEntity<?> updateEvent(@PathVariable(value = "idevent") Long idevent, @RequestBody MEvents events) {
 
+		// Verificamos que el usuario existe
 		User userDb = userService.findByUsername(events.getUsername());
 
 		if (userDb != null) {
 
 			Events eventDb = null;
+			// Verificamos que el evento existe 
 			eventDb = eventsService.findByEvent(idevent);
 			if (eventDb != null) {
 
@@ -182,6 +233,7 @@ public class EventsRestController {
 				eventDb.setMaxPeople(events.getMaxPeople());
 				eventDb.setIdlanguage(events.getIdlanguage());
 
+				// Actualizamos
 				eventsService.updateEvent(eventDb);
 				return new ResponseEntity<>(eventDb, HttpStatus.OK);
 			} else {
@@ -192,6 +244,11 @@ public class EventsRestController {
 
 	}
 
+	/**
+	 * Method: Petición que elimina un evento en base al id
+	 * @param 
+	 * @return 
+	 */
 	@DeleteMapping("/delete/{idevent}")
 	public ResponseEntity<Void> deleteEvent(@PathVariable(value = "idevent") Long idevent) {
 		eventsService.deleteEvent(idevent);
