@@ -20,5 +20,7 @@ public interface IEventsService {
 	public Events updateEvent(Events countries);
 	
 	public List<Events> findByIduser(Long idUser);
+	
+	public Integer deleteEventUser(Long idevent, Long iduser);
 
 }

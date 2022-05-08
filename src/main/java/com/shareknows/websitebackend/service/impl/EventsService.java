@@ -25,6 +25,7 @@ public class EventsService implements IEventsService {
 	}
 
 	@Override
+	@Transactional
 	public void save(Events events) {
 		eventsDao.save(events);	
 	}
@@ -40,11 +41,13 @@ public class EventsService implements IEventsService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteEvent(Long event) {
 		eventsDao.deleteById(event);
 	}
 
 	@Override
+	@Transactional
 	public Events updateEvent(Events events) {
 		return eventsDao.save(events);
 	}
@@ -52,6 +55,12 @@ public class EventsService implements IEventsService {
 	@Override
 	public List<Events> findByIduser(Long idUser) {
 		return (List<Events>) eventsDao.findByIduser(idUser);
+	}
+
+	@Override
+	@Transactional
+	public Integer deleteEventUser(Long idevent, Long iduser) {
+		return eventsDao.deleteEventUser(idevent, iduser);
 	}
 	
 

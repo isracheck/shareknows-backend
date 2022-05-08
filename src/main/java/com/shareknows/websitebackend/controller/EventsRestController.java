@@ -135,6 +135,25 @@ public class EventsRestController {
 		}
 
 	}
+	
+	@PutMapping("/unsuscribevent/{idevent}")
+	public ResponseEntity<?> unsuscribeEvent(@PathVariable(value = "idevent") Long idevent, @RequestBody User user) {
+
+		if (user != null) {
+			User userDb = userService.findByUsername(user.getUsername());
+			Events eventDb = eventsService.findByEvent(idevent);
+
+			if (userDb != null && eventDb != null) {
+				eventsService.deleteEventUser(eventDb.getIdevent(), userDb.getIduser());
+				return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
+			} else {
+				return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+			}
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
 
 	@PutMapping("/update/{idevent}")
 	public ResponseEntity<?> updateEvent(@PathVariable(value = "idevent") Long idevent, @RequestBody MEvents events) {
