@@ -15,14 +15,12 @@ import com.shareknows.websitebackend.dao.IUserDao;
 import com.shareknows.websitebackend.entity.User;
 import com.shareknows.websitebackend.service.IUserService;
 
-
-
 @Service
 public class UserServiceImpl implements IUserService, UserDetailsService {
-	
+
 	@Autowired
 	private IUserDao userDao;
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<User> findAll() {
@@ -33,7 +31,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	@Transactional
 	public void save(User user) {
 		userDao.save(user);
-		
+
 	}
 
 	@Override
@@ -50,7 +48,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	@Override
 	@Transactional
 	public void deleteUser(User user) {
-		userDao.deleteByUsername(user.getUsername());	
+		userDao.deleteByUsername(user.getUsername());
 	}
 
 	@Override
@@ -62,7 +60,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	@Override
 	@Transactional
 	public void deleteUsername(String username) {
-		userDao.deleteByUsername(username);	
+		userDao.deleteByUsername(username);
 	}
 
 	@Override
@@ -73,12 +71,11 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userDao.findByUsername(username);
-		if(user == null) {
+		if (user == null) {
 			throw new UsernameNotFoundException("Usuario no valido");
 		}
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getHash(), Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));	
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getHash(),
+				Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
 	}
 
-
-	
 }

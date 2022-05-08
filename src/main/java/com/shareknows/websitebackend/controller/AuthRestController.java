@@ -71,10 +71,13 @@ public class AuthRestController {
     @PostMapping("/signup")
     public ResponseEntity<Void> addUser(@RequestBody User user){
     	
-    	
+    	// Verificamos si el usuario existe
         if(userService.findUser(user)==null) {
+        	// Identificamos que el usuario haya ingresado un password en la petición
         	if (user.getHash() != null) {
+        		// Aplicamos el códificador encode para hashear el password
         		user.setHash(bCryptPassowrdEncoder.encode(user.getHash()));
+        		// Guardamos nuevo usuario
         		userService.save(user);
         		return new ResponseEntity<Void>(HttpStatus.CREATED);		
         	} 

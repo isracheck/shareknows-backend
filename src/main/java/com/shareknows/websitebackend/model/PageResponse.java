@@ -1,6 +1,5 @@
 package com.shareknows.websitebackend.model;
 
-
 public class PageResponse {
 
 	private Integer selectedPage;
@@ -54,5 +53,5 @@ public class PageResponse {
 		return "PageResponse [selectedPage=" + selectedPage + ", maxPages=" + maxPages + ", size=" + size + ", isFirst="
 				+ isFirst + ", isLast=" + isLast + "]";
 	}
-	
+
 }

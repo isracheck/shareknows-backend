@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
-
 public class MEvents {
-
 
 	private Long idevent;
 
@@ -25,7 +23,7 @@ public class MEvents {
 	private String email;
 
 	private String address;
-	
+
 	private String postalcode;
 
 	private String idcity;
@@ -165,8 +163,7 @@ public class MEvents {
 	private BigDecimal value;
 
 	private Integer maxPeople;
-	
+
 	private String idlanguage;
-	
-	
+
 }

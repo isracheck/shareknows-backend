@@ -21,15 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shareknows.websitebackend.entity.UsersFollow;
 import com.shareknows.websitebackend.service.IUsersFollowService;
 
-
 //@Service
 public class UsersFollowService implements IUsersFollowService {
 
 	@Autowired
 	private UsersFollowService usersFollowDao;
-	
+
 	@Override
-	//@Transactional(readOnly=true)
+	// @Transactional(readOnly=true)
 	public List<UsersFollow> findAll() {
 		// TODO Auto-generated method stub
 		return null;
@@ -37,10 +36,8 @@ public class UsersFollowService implements IUsersFollowService {
 
 	@Override
 	public void save(UsersFollow userFollow) {
-		usersFollowDao.save(userFollow);	
-		
-	}
-	
+		usersFollowDao.save(userFollow);
 
+	}
 
 }

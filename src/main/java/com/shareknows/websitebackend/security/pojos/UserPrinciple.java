@@ -14,119 +14,109 @@ import com.shareknows.websitebackend.entity.User;
 import com.shareknows.websitebackend.model.RoleName;
 
 public class UserPrinciple implements UserDetails {
-	
+
 	private static final long serialVersionUID = 5887971688214007651L;
 
 	private Integer id;
 
-    private String name;
+	private String name;
 
-    private String username;
+	private String username;
 
-    private String email;
-    
-    @JsonIgnore
-    private String password;
+	private String email;
 
-    private Collection<? extends GrantedAuthority> authorities;
-    
-    private boolean isEnabled;
-    
-    private boolean isCredentialsNonExpired;
-    
-    public UserPrinciple(Integer id, String name, 
-			    		String username, String email, String password, boolean isEnabled, String recoveryUuid,
-			    		Collection<SimpleGrantedAuthority> authorities) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.authorities = authorities;
-        this.isEnabled = isEnabled;
-        
-        if(recoveryUuid!=null && !recoveryUuid.isEmpty()) {
-        	this.isCredentialsNonExpired = false;
-        }else {
-        	this.isCredentialsNonExpired = true;
-        }
-    }
+	@JsonIgnore
+	private String password;
 
-    public static UserPrinciple build(User user) {
-    	
-    	// Check if role exists in current enum
-    	RoleName autorityRole = RoleName.valueOf(user.getRole());
-    	
-    	// Create the authority array
-    	List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-    	authorities.add(new SimpleGrantedAuthority(autorityRole.name()));
-    	
-    	// Build object
-        return new UserPrinciple(
-                user.getIduser().intValue(),
-                user.getName(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getHash(),
-                true,
-                user.getRecoveryuuid(),
-                authorities
-        );
-    }
+	private Collection<? extends GrantedAuthority> authorities;
 
-    
-    // ********************
-    // GETTERS
-    // ********************
-    
-    public Integer getId() {
-        return id;
-    }
+	private boolean isEnabled;
 
-    public String getName() {
-        return name;
-    }
+	private boolean isCredentialsNonExpired;
+
+	public UserPrinciple(Integer id, String name, String username, String email, String password, boolean isEnabled,
+			String recoveryUuid, Collection<SimpleGrantedAuthority> authorities) {
+		this.id = id;
+		this.name = name;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.authorities = authorities;
+		this.isEnabled = isEnabled;
+
+		if (recoveryUuid != null && !recoveryUuid.isEmpty()) {
+			this.isCredentialsNonExpired = false;
+		} else {
+			this.isCredentialsNonExpired = true;
+		}
+	}
+
+	public static UserPrinciple build(User user) {
+
+		// Check if role exists in current enum
+		RoleName autorityRole = RoleName.valueOf(user.getRole());
+
+		// Create the authority array
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority(autorityRole.name()));
+
+		// Build object
+		return new UserPrinciple(user.getIduser().intValue(), user.getName(), user.getUsername(), user.getEmail(),
+				user.getHash(), true, user.getRecoveryuuid(), authorities);
+	}
+
+	// ********************
+	// GETTERS
+	// ********************
+
+	public Integer getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
 
 	public String getEmail() {
-        return email;
-    }
+		return email;
+	}
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
+	@Override
+	public String getUsername() {
+		return username;
+	}
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
+	@Override
+	public String getPassword() {
+		return password;
+	}
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return this.isCredentialsNonExpired;
-    }
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return this.isCredentialsNonExpired;
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return this.isEnabled;
-    }
+	@Override
+	public boolean isEnabled() {
+		return this.isEnabled;
+	}
 
-    @Override
+	@Override
 	public int hashCode() {
 		return Objects.hash(authorities, email, id, name, password, username);
 	}

@@ -1,6 +1,5 @@
 package com.shareknows.websitebackend.service.impl;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,11 @@ import com.shareknows.websitebackend.service.IEventsService;
 @Service
 public class EventsService implements IEventsService {
 
-	
 	@Autowired
 	private IEventsDao eventsDao;
-	
+
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<Events> findAll() {
 		return (List<Events>) eventsDao.findAll();
 	}
@@ -27,7 +25,7 @@ public class EventsService implements IEventsService {
 	@Override
 	@Transactional
 	public void save(Events events) {
-		eventsDao.save(events);	
+		eventsDao.save(events);
 	}
 
 	@Override
@@ -62,7 +60,5 @@ public class EventsService implements IEventsService {
 	public Integer deleteEventUser(Long idevent, Long iduser) {
 		return eventsDao.deleteEventUser(idevent, iduser);
 	}
-	
-
 
 }

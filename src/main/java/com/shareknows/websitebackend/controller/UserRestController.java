@@ -17,66 +17,65 @@ import com.shareknows.websitebackend.service.IUserService;
 @RequestMapping("/api/users")
 public class UserRestController {
 
-    @Autowired
-    private IUserService userService;
-    
-    @Autowired
+	@Autowired
+	private IUserService userService;
+
+	@Autowired
 	private BCryptPasswordEncoder bCryptPassowrdEncoder;
 
-    
-    @GetMapping("/all")
-    @ResponseStatus(HttpStatus.OK)
-    public List<User> getCompanies(){
-        return userService.findAll();
-    }
+	@GetMapping("/all")
+	@ResponseStatus(HttpStatus.OK)
+	public List<User> getCompanies() {
+		return userService.findAll();
+	}
 
-    @GetMapping("/find/{username}")
-    public ResponseEntity<?> findUser(@PathVariable(value = "username") String username){
-        User userDb = userService.findByUsername(username);
-        if(userDb!=null) {
-            return new ResponseEntity<>(userDb, HttpStatus.OK);
-        }else {
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-        }
-    }
+	@GetMapping("/find/{username}")
+	public ResponseEntity<?> findUser(@PathVariable(value = "username") String username) {
+		User userDb = userService.findByUsername(username);
+		if (userDb != null) {
+			return new ResponseEntity<>(userDb, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
 
-    @PutMapping("/update/{username}")
-    public ResponseEntity<?> updateUser(@PathVariable(value="username")String username, @RequestBody User user){
-        User userDb = null;
-        userDb = userService.findByUsername(username);
-        if(userDb != null) {
-        	
-        	if(user.getEmail() != null) {
-        		userDb.setEmail(user.getEmail());
-        	}
-        	
-        	if(user.getName() != null) {
-        		userDb.setName(user.getName());
-        	}
-        	if(user.getLastname() != null) {
-        		userDb.setLastname(user.getLastname());
-        	}
-        	
-        	if(user.getPhone() != null) {
-        		userDb.setPhone(user.getPhone());
-        	}
-        	
-            userDb.setPhoto(user.getPhoto());
-            
-            if (user.getHash() != null) {
-            	userDb.setHash(bCryptPassowrdEncoder.encode(user.getHash()));
-            }
-            userService.updateUser(userDb);
-            return new ResponseEntity<>(userDb, HttpStatus.OK);
-        }else {
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-        }
-    }
+	@PutMapping("/update/{username}")
+	public ResponseEntity<?> updateUser(@PathVariable(value = "username") String username, @RequestBody User user) {
+		User userDb = null;
+		userDb = userService.findByUsername(username);
+		if (userDb != null) {
 
-    @DeleteMapping("/delete/{user}")
-    public ResponseEntity<Void> deleteUser(@PathVariable(value="user")String user){
-        userService.deleteUsername(user);
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    }
+			if (user.getEmail() != null) {
+				userDb.setEmail(user.getEmail());
+			}
+
+			if (user.getName() != null) {
+				userDb.setName(user.getName());
+			}
+			if (user.getLastname() != null) {
+				userDb.setLastname(user.getLastname());
+			}
+
+			if (user.getPhone() != null) {
+				userDb.setPhone(user.getPhone());
+			}
+
+			userDb.setPhoto(user.getPhoto());
+
+			if (user.getHash() != null) {
+				userDb.setHash(bCryptPassowrdEncoder.encode(user.getHash()));
+			}
+			userService.updateUser(userDb);
+			return new ResponseEntity<>(userDb, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@DeleteMapping("/delete/{user}")
+	public ResponseEntity<Void> deleteUser(@PathVariable(value = "user") String user) {
+		userService.deleteUsername(user);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 
 }

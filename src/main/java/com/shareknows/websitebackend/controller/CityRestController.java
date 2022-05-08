@@ -40,10 +40,10 @@ public class CityRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@GetMapping("/findByCountry/{idcountry}")
-	public  List<Cities> findByCountry(@PathVariable(value = "idcountry") String idcountry) {
-		return citiesService.findByIdcountry(idcountry);	
+	public List<Cities> findByCountry(@PathVariable(value = "idcountry") String idcountry) {
+		return citiesService.findByIdcountry(idcountry);
 	}
 
 	@PostMapping("/save")
@@ -59,8 +59,7 @@ public class CityRestController {
 	}
 
 	@PutMapping("/update/{idcity}")
-	public ResponseEntity<?> updateCity(@PathVariable(value = "idcity") String idcity,
-			@RequestBody Cities cities) {
+	public ResponseEntity<?> updateCity(@PathVariable(value = "idcity") String idcity, @RequestBody Cities cities) {
 		Cities cityDb = null;
 		cityDb = citiesService.findByCity(idcity);
 		if (cityDb != null) {

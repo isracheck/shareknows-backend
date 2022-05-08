@@ -6,31 +6,29 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class CustomUserDetail implements UserDetails{
+public class CustomUserDetail implements UserDetails {
 
-    private static final long serialVersionUID = 1L;
-    
-    private String password;
-    private boolean accountNonLocked;
-    private boolean accountNonExpired;
-    private boolean enabled;
-    private boolean credentialsNonExpired;
-    private String username;
+	private static final long serialVersionUID = 1L;
 
-    Set<GrantedAuthority> authorities=null;
+	private String password;
+	private boolean accountNonLocked;
+	private boolean accountNonExpired;
+	private boolean enabled;
+	private boolean credentialsNonExpired;
+	private String username;
 
+	Set<GrantedAuthority> authorities = null;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
 
-    public void setAuthorities(Set<GrantedAuthority> authorities)
-    {
-        this.authorities=authorities;
-    }
+	public void setAuthorities(Set<GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
 
-    @Override
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -57,7 +55,6 @@ public class CustomUserDetail implements UserDetails{
 		this.accountNonExpired = accountNonExpired;
 	}
 
-	
 	@Override
 	public String getUsername() {
 		return username;
@@ -83,6 +80,6 @@ public class CustomUserDetail implements UserDetails{
 
 	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
 		this.credentialsNonExpired = credentialsNonExpired;
-	}  
+	}
 
 }

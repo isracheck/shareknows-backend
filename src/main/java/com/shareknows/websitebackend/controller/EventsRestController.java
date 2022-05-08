@@ -135,7 +135,7 @@ public class EventsRestController {
 		}
 
 	}
-	
+
 	@PutMapping("/unsuscribevent/{idevent}")
 	public ResponseEntity<?> unsuscribeEvent(@PathVariable(value = "idevent") Long idevent, @RequestBody User user) {
 

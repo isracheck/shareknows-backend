@@ -14,20 +14,20 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "countries")
-public class Countries implements Serializable  {
-	
+public class Countries implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(unique = true, length = 5, nullable = false)
 	private String idcountry;
-	
+
 	@Column(nullable = false)
 	private String description;
-	
-	@Column(nullable = false, name= "continentname")
+
+	@Column(nullable = false, name = "continentname")
 	private String continentName;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idcountry", referencedColumnName = "idcountry")
 	private List<Cities> citiesList = new ArrayList<>();
@@ -63,6 +63,5 @@ public class Countries implements Serializable  {
 	public void setCitiesList(List<Cities> citiesList) {
 		this.citiesList = citiesList;
 	}
-	
-	
+
 }

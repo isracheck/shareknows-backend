@@ -40,7 +40,7 @@ public class LanguageRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@PostMapping("/save")
 	public ResponseEntity<Void> saveLanguage(@RequestBody Languages languages) {
 

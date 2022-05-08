@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 
 public class PageUtils {
 
-	public static PageResponse mapPageInfo(Page<?> page){
+	public static PageResponse mapPageInfo(Page<?> page) {
 		PageResponse response = new PageResponse();
 		response.setMaxPages(page.getTotalPages());
 		response.setSelectedPage(page.getNumber());
@@ -13,5 +13,5 @@ public class PageUtils {
 		response.setSize(page.getSize());
 		return response;
 	}
-	
+
 }

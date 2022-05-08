@@ -12,24 +12,22 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "cities")
-public class Cities implements Serializable  {
-	
+public class Cities implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(unique = true, length = 5, nullable = false)
 	private String idcity;
-	
+
 	@Column(name = "idcountry", length = 5)
 	private String idcountry;
-	
-	
+
 	@Column(nullable = false)
 	private String name;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idcity", referencedColumnName = "idcity")
 	private List<Events> eventsList = new ArrayList<>();

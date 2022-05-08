@@ -56,7 +56,7 @@ public class Events implements Serializable {
 
 	@Column(length = 45, nullable = false)
 	private String address;
-	
+
 	@Column(length = 10, nullable = false)
 	private String postalcode;
 
@@ -75,16 +75,13 @@ public class Events implements Serializable {
 
 	@Column(name = "maxpeople", nullable = false)
 	private Integer maxPeople;
-	
+
 	@Column(name = "idlanguage")
 	private String idlanguage;
-	
-	
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JsonBackReference
-	@JoinTable(name="eventsuser",
-		joinColumns = @JoinColumn(name="idevent", referencedColumnName = "idevent"),
-		inverseJoinColumns = @JoinColumn(name="iduser", referencedColumnName = "iduser"))
+	@JoinTable(name = "eventsuser", joinColumns = @JoinColumn(name = "idevent", referencedColumnName = "idevent"), inverseJoinColumns = @JoinColumn(name = "iduser", referencedColumnName = "iduser"))
 	private Set<User> usuarios = new HashSet<User>();
 
 	public Long getIdevent() {
@@ -158,7 +155,7 @@ public class Events implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getPostalcode() {
 		return postalcode;
 	}
@@ -219,7 +216,7 @@ public class Events implements Serializable {
 	public void prePersist() {
 		createAt = new Date();
 	}
-	
+
 	public void addUsuario(User user) {
 		this.usuarios.add(user);
 	}

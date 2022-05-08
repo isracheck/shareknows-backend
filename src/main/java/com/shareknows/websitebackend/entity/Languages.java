@@ -14,17 +14,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "language")
-public class Languages implements Serializable  {
+public class Languages implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(unique = true, length = 2, nullable = false)
 	private String idlanguage;
-	
+
 	@Column(nullable = false)
 	private String description;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idlanguage", referencedColumnName = "idlanguage")
 	private List<Events> eventsList = new ArrayList<>();

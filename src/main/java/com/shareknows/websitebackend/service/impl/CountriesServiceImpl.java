@@ -1,6 +1,5 @@
 package com.shareknows.websitebackend.service.impl;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +11,11 @@ import com.shareknows.websitebackend.entity.Countries;
 import com.shareknows.websitebackend.service.ICountriesService;
 
 @Service
-public class CountriesServiceImpl implements ICountriesService  {
+public class CountriesServiceImpl implements ICountriesService {
 
 	@Autowired
 	private ICountriesDao countriesDao;
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Countries> findAll() {
@@ -26,14 +25,14 @@ public class CountriesServiceImpl implements ICountriesService  {
 	@Override
 	@Transactional
 	public void save(Countries countries) {
-		countriesDao.save(countries);		
+		countriesDao.save(countries);
 	}
 
 	@Override
 	public Countries findByCountry(String country) {
 		return (Countries) countriesDao.findByIdcountry(country);
 	}
-	
+
 	@Override
 	public Countries findCountry(Countries country) {
 		return (Countries) countriesDao.findByIdcountry(country.getIdcountry());
@@ -42,7 +41,7 @@ public class CountriesServiceImpl implements ICountriesService  {
 	@Override
 	@Transactional
 	public void deleteCountry(String country) {
-		countriesDao.removeByIdcountry(country);		
+		countriesDao.removeByIdcountry(country);
 	}
 
 	@Override

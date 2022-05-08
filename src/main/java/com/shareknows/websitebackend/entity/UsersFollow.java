@@ -14,19 +14,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 //@Entity
 //@Table(name = "usersfollow")
 public class UsersFollow implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	//@Id
-	//@Column(nullable = false)
+
+	// @Id
+	// @Column(nullable = false)
 	private Long iduser;
 
 	private Long iduserrel;
-	
+
 	private String typefollow;
 
 	public Long getIduser() {
@@ -52,6 +51,5 @@ public class UsersFollow implements Serializable {
 	public void setTypefollow(String typefollow) {
 		this.typefollow = typefollow;
 	}
-
 
 }

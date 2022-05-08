@@ -10,14 +10,14 @@ public interface ICitiesService {
 	public List<Cities> findAll();
 
 	public void save(Cities cities);
-	
+
 	public Cities findByCity(String city);
-	
+
 	public List<Cities> findByIdcountry(String city);
-	
+
 	Cities findCity(Cities cities);
-	
+
 	public void deleteCity(String city);
-	
+
 	public Cities updateCity(Cities cities);
 }

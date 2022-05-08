@@ -3,10 +3,10 @@ package com.shareknows.websitebackend.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class JwtResponse extends BasicResponse{
-	
+public class JwtResponse extends BasicResponse {
+
 	private static final String TOKEN_TYPE = "Bearer";
-	
+
 	private final String accessToken;
 	private final String username;
 	private final String authority;

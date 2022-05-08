@@ -11,12 +11,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "eventsuser")
 public class Eventsuser implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private Long idevent;
-	
+
 	@Id
 	private Long iduser;
 }
